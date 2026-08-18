@@ -1,0 +1,12 @@
+CREATE TABLE Students (StudentID IN TABLE Students (StudentID INT PRIMARY KEY,Name VARCHAR(30),Age INT);
+CREATE TABLE Courses (CourseID INT PRIMARY KEY,CourseName VARCHAR(20));
+CREATE TABLE Enrollments (StudentID IN REFERENCES Student(StudentID),CourseID INT REFERENCES Courses(CourseID));
+INSERT INTO Students VALUES (1, 'Alice', 20);
+INSERT INTO Courses VALUES (101, 'Database Management');
+INSERT INTO Enrollments VALUES (1, 101); 
+SELECT * FROM Students; 
+SELECT Name, Age FROM Students WHERE Age > 20; 
+SELECT Name FROM Students WHERE StudentID IN (SELECT StudentID FROM Enrollments  WHERE CourseID = (SELECT CourseID         FROM Courses WHERE CourseName = 'Database MaTnagement')); 
+SELECT AVG(Age) AS AverageAge FROM Students;  
+SELECT CourseID, CourseName FROM Courses WHERE CourseID IN (SELECT CourseID FROM Enrollments GROUP BY CourseID HAVING COUNT(*) > 1 ); 
+SELECT Name, Age FROM Students WHERE Age > (SELECT AVG(Age) FROM Students); 
